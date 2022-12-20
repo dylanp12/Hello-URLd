@@ -3,7 +3,7 @@
 
 ## For reference, the API Specification as follows: 
 
-`POST /shorten: This endpoint will be used to create a new short URL. It will take the original URL and the desired short URL (if specified) as input parameters. It will return the short URL if it is successfully created, or an error message if it is not.
+` POST /shorten: This endpoint will be used to create a new short URL. It will take the original URL and the desired short URL (if specified) as input parameters. It will return the short URL if it is successfully created, or an error message if it is not.
 
 GET /{short_url}: This endpoint will be used to redirect the user to the original URL when the short URL is accessed. It will take the short URL as a path parameter and return a redirect response to the original URL.
 
