@@ -10,7 +10,9 @@ import {
   Col,
   Table
 } from 'reactstrap';
+import { Modal } from 'react-bootstrap'
 import axios from 'axios';
+import './App.css';
 
 const API_BASE_URL = 'http://localhost:8000'
 
@@ -19,7 +21,8 @@ class App extends React.Component {
     originalUrl: '',
     shortUrl: '',
     urls: [],
-    analytics: {}
+    analytics: {},
+    url_mapping: {},
   };
 
   // Fetch the list of URLs when the component is mounted
@@ -55,6 +58,7 @@ class App extends React.Component {
 
     axios.post(`${API_BASE_URL}/shorten`, data).then(response => {
       this.setState({ shortUrl: response.data.short_url });
+      this.setState({url_mapping: Object.assign(data)})
       this.getUrls();
     });
   }
@@ -70,7 +74,30 @@ class App extends React.Component {
     {
       stats += `${key}: ${value}\n`
     }
-    alert(stats)
+  
+
+    return (
+      <>
+      <Button variant="primary">
+        Launch demo modal
+      </Button>
+
+      <Modal>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary">
+            Close
+          </Button>
+          <Button variant="primary">
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+    );
     
   }
   
@@ -104,7 +131,7 @@ class App extends React.Component {
         <Row>
           <Col>
             <h2>URLs</h2>
-            <Table>
+            <Table className='table'>
               <thead>
                 <tr>
                   <th>Short URL</th>
@@ -116,9 +143,9 @@ class App extends React.Component {
                 {this.state.urls.map(url => (
                   <tr key={url}>
                     <td>{url}</td>
-                    <td>{this.state.analytics['analytics']}</td>
+                    <td>{this.state.url_mapping[url]}</td>
                     <td>
-                      <Button onClick={() => this.handleAnalytics(url)}>Analytics</Button>{' '}
+                      <Button onClick={() => this.handleAnalytics(url)}>Refresh Analytics</Button>{' '}
                       <Button onClick={() => this.handleDelete(url)}>Delete</Button>
                     </td>
                   </tr>
