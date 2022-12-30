@@ -17,6 +17,7 @@ def generate_key(url):
   # Check if the key is already in use
   return key
 
+# Create analytics for shorty url
 def create_analytics(short_url):
   timestamp = time.time()
   urls[short_url]["analytics"] = {"usage": 0, "creation_time": timestamp}
@@ -76,8 +77,3 @@ def delete_url(short_url):
   # Delete the short URL from the dictionary
   del urls[short_url]
   return jsonify({"message": "Short URL deleted successfully"}), 200
-
-@app.route("/list", methods=["GET"])
-def list_urls():
-  # Return the list of short URLs
-  return jsonify(list(urls.keys())), 200
