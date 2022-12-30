@@ -15,11 +15,7 @@ def generate_key(url):
   # Use the SHA-1 hash function to map the URL to a unique key
   key = hashlib.sha1(url.encode()).hexdigest()[:6]
   # Check if the key is already in use
-  if key in urls:
-    # If the key is already in use, generate a new key
-    return generate_key(url)
-  else:
-    return key
+  return key
 
 def create_analytics(short_url):
   timestamp = time.time()
@@ -56,7 +52,7 @@ def redirect_url(short_url):
   urls[short_url]["analytics"]["usage"] += 1
   # Redirect the user to the original URL
   print(original_url, original_url)
-  return redirect(original_url)
+  return redirect(original_url, 302)
 
 
 # Retrieve analytics data for a specific short URL
